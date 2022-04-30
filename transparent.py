@@ -41,7 +41,9 @@ def main():
     # final erosion
     if args.final_erosion > 0:
         cross_kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (args.final_erosion, args.final_erosion))
-        mask_final = cv2.erode(mask_or, cross_kernel, iterations = 1)
+        mask_erode = cv2.erode(mask_or, cross_kernel, iterations = 1)
+        range1 = mask_or - mask_erode
+        mask_final = mask_erode + range1 * 0.5
     else:
         mask_final = mask_or
 
@@ -55,7 +57,7 @@ def getargs():
     argparser.add_argument('--output',type=str, required=True)
     argparser.add_argument('--range', type=int, default=10, help='Background color reference would be a square region of 0<=x<args.range and 0<=y<args.range. Specify in pix')
     argparser.add_argument('--threshold_weak', type=str2intlist, default="150,40,150", help='Specify threshold to be background. 0,0,0 would be the weakest and 255,255,255 is the strongest.')
-    argparser.add_argument('--threshold_strong', type=str2intlist, default="180,80,180", help='Strong thredshold to cut the edge of the front object strictly.')
+    argparser.add_argument('--threshold_strong', type=str2intlist, default="160,60,160", help='Strong thredshold to cut the edge of the front object strictly.')
     argparser.add_argument('--weak_mask_erosion', type=int, default=3)
     argparser.add_argument('--final_erosion', type=int, default=3, help='Erosion kernel size for final mask. Specify 0 to pass erosion.')
     args = argparser.parse_args()
