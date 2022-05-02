@@ -1,11 +1,11 @@
-# transparent_background
-A script to make the background of a .png file transparent.
+# Transparent background
+A script to make background of .png files transparent.
 
-## requirement 
+## Requirements
 - python3
 - cv2, scipy, pandas, numpy, argparse
 
-## options
+## Options
 - --input: Required. Input png file path.
 - --output: Required. Output png file path.
 - --range: Background color reference would be a square region of 0<=x<args.range and 0<=y<args.range. Specify in pix
